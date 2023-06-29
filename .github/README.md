@@ -1,3 +1,5 @@
+修改了默认平台工具集版本为v142，所以建议使用Visual Studio 2019编译。
+
 This is the official mirror of [TheDarkMod](https://www.thedarkmod.com) source code SVN repository.
 
 
