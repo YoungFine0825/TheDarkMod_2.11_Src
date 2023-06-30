@@ -35,7 +35,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 cmake_dependent_option(WITH_TOOLS "Compile with Tools" ON "MSVC" OFF)
-set(GAME_DIR "${PROJECT_SOURCE_DIR}/../darkmod" CACHE STRING "The directory where the game assets are stored")
+set(OUTPUT_DIR "${PROJECT_SOURCE_DIR}/output" CACHE STRING "The directory where the game assets are stored")
 option(COPY_EXE "Copy executable to GAME_DIR after build" ON)
 set(THIRDPARTY_PLATFORM_OVERRIDE "" CACHE STRING "If you build conan dependencies yourself with custom platform_name, pass platform_name string here")
 option(ENABLE_TRACY "Enable tracy profiling support. Needs to be activated ingame by enabling the cvar com_enableTracing." ON)
@@ -297,13 +297,13 @@ if (COPY_EXE)
 	# copy produced executable to game directory '../darkmod'
 	add_custom_command(
 			TARGET TheDarkMod POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:TheDarkMod> "${GAME_DIR}"
-			COMMAND ${CMAKE_COMMAND} -E copy_directory "${PROJECT_SOURCE_DIR}/glprogs" "${GAME_DIR}/glprogs"
+			COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:TheDarkMod> "${OUTPUT_DIR}"
+			COMMAND ${CMAKE_COMMAND} -E copy_directory "${PROJECT_SOURCE_DIR}/glprogs" "${OUTPUT_DIR}/glprogs"
 	)
 	if (UNIX)
 		add_custom_command(
 				TARGET TheDarkMod POST_BUILD
-				COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:TheDarkMod>.debug "${GAME_DIR}"
+				COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:TheDarkMod>.debug "${OUTPUT_DIR}"
 		)
 	endif()
 endif ()
